@@ -1,10 +1,15 @@
-name: GitHub actions demo
-run-name: Testing our Github actions
-
-on: [push]
+on: push
 
 jobs:
-  basic_workflow:
+  launch_jenkins_job:
+    name: trigger jenkins job
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Job basic_workflow is executing as part of new workflow"
+      -
+        name: Trigger Jenkins Job
+        uses: sbitio/trigger-jenkins-job@master
+        with:
+          JENKINS_USER: ${{ secrets.JENKINS_USERNAME }}
+          JENKINS_TOKEN: ${{ secrets.JENKINS_TOKEN }}
+          JENKINS_HOST: ${{ secrets.JENKINS_SERVER }}
+          JENKINS_JOB: ${{ secrets.JENKINS_JOB }}
